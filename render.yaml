@@ -1,0 +1,28 @@
+services:
+  - type: worker
+    name: cinemabot-worker
+    runtime: docker
+    region: frankfurt
+    plan: 0.5c-512mb
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cinemabot-db
+          property: connectionString
+      - key: Storage__UsePostgres
+        value: "true"
+      - key: Telegram__BotToken
+        sync: false
+      - key: Telegram__ChatId
+        sync: false
+
+databases:
+  - name: cinemabot-db
+    region: frankfurt
+    plan: 0.1c-256mb
+    postgresMajorVersion: "18"
+    ipAllowList: []

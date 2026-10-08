@@ -1,0 +1,13 @@
+bin/
+obj/
+.vs/
+publish/
+*.user
+*.suo
+debug/
+appsettings.Local.json
+
+# Local runtime state and secrets
+data/
+.env
+.env.*
